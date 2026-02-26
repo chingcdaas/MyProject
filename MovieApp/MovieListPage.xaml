@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieApp.MovieListPage"
+             xmlns:local="clr-namespace:MovieApp"
+             Title="MovieListPage">
+            <VerticalStackLayout BackgroundColor="LightBlue" Padding="10">
+    <Button Text="AddMovie" Clicked="OnAddMovieClicked" HorizontalOptions="Center" Margin="10" WidthRequest="200"/>
+    <CollectionView
+        BackgroundColor="White"
+        ItemsSource="{Binding Movies}"
+        SelectedItem="{Binding SelectedMovie}"
+        SelectionMode="Single"
+        VerticalOptions="FillAndExpand">
+        <!-- your ItemTemplate -->
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="Delete" BackgroundColor="Red" Clicked="OnDeleteMovie"/>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <HorizontalStackLayout Padding="10">
+                        <Image Source="{Binding Image}" WidthRequest="100" HeightRequest="60" Aspect="AspectFill"/>
+                        <StackLayout BackgroundColor="#FF00515A" Padding="10" WidthRequest="600">
+                            <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Date, StringFormat='{0:yyyy-MM-dd}'}"/>
+                            <Label Text="{Binding IsWatched, Converter={local:MovieStatusConverter}}"/>
+                        </StackLayout>
+                    </HorizontalStackLayout>
+                </SwipeView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</VerticalStackLayout>
+</ContentPage>
